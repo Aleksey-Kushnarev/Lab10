@@ -8,7 +8,7 @@ namespace Demonstration
         {
             Carriage v = new Carriage();
             v.RandomInit();
-            Console.WriteLine(v);
+            v.Show();
         }
         
     }
