@@ -6,9 +6,10 @@ namespace Demonstration
     {
         public static void Main(string[] args)
         {
-            Carriage v = new Carriage();
-            v.RandomInit();
+            Coach v = new Restoraunt();
+            v.Init();
             v.Show();
+            
         }
         
     }

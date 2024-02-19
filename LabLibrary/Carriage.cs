@@ -6,25 +6,25 @@ namespace LabLibrary
 {
     public class Carriage//, IComparable<Person>, ICloneable, IEquatable<Person>
     {
-        public int GetMaxAge => 100;
+        public static int GetMaxSpeed => 150;
 
-        protected Random rnd = new Random();
+        private Random rnd = new Random();
 
         static string[] Letters = { "AB", "TR", "PO", "JH", "UG", "LE" };
         static string[] Indexes = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 
         public string Name { get; set; }
 
-        protected int maxSpeed;
+        private int _maxSpeed;
 
         public int MaxSpeed
         {
-            get => maxSpeed;
+            get => _maxSpeed;
             set
             {
-                if (value <= 0)
+                if (value <= 0 || value > GetMaxSpeed)
                     throw new Exception("Скорость должна быть больше 0");
-                maxSpeed = value;
+                _maxSpeed = value;
             }
         }
 
@@ -50,7 +50,7 @@ namespace LabLibrary
 
         public override string ToString()
         {
-            return Name + ", " + MaxSpeed;
+            return $"Name = {Name}, Speed = {MaxSpeed}";
         }
 
         public void Show()
