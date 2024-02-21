@@ -7,7 +7,7 @@ using Microsoft.VisualBasic.CompilerServices;
 
 namespace LabLibrary
 {
-    public class Coach : Carriage
+    public class Coach : Carriage, ICloneable
     {
         public static int GetMaxSeats => 80;
         public static int GetMaxBeds => 60;
@@ -19,7 +19,7 @@ namespace LabLibrary
             set
             {
                 if (0 > value || GetMaxSeats < value)
-                    throw new Exception($"Значение должно быть в пределах от 0 до {GetMaxSeats}");
+                    throw new ArgumentOutOfRangeException($"{value}", $"Значение должно быть в пределах от 0 до {GetMaxSeats}");
                 _seats = value;
             }
         }
@@ -31,11 +31,11 @@ namespace LabLibrary
             set
             {
                 if (0 > value || GetMaxBeds < value)
-                    throw new Exception($"Значение должно быть в пределах от 0 до {GetMaxSeats}");
+                    throw new ArgumentOutOfRangeException("{value}",$"Значение должно быть в пределах от 0 до {GetMaxSeats}");
                 _beds = value;
             }
         }
-        public Coach(string number, int maxSpeed, int seats, int beds) : base(number, maxSpeed)
+        public Coach(int id, string number, int maxSpeed, int seats, int beds) : base(id, number, maxSpeed)
         {
             Seats = seats;
             Beds = beds;
@@ -57,7 +57,7 @@ namespace LabLibrary
         {
             if (obj == null) return false;
             if (obj is Coach p)
-                return this.Name == p.Name && this.MaxSpeed == p.MaxSpeed && this.Seats == p.Seats && this.Beds == p.Beds;
+                return base.Equals(obj) && this.Seats == p.Seats && this.Beds == p.Beds;
             return false;
         }
 
@@ -91,5 +91,17 @@ namespace LabLibrary
                 Beds = 0;
             }
         }
+
+        public override void RandomInit()
+        {
+            base.RandomInit();
+            Beds = rnd.Next(GetMaxBeds);
+            Seats = rnd.Next(GetMaxSeats);
+        }
+        public new object Clone()
+        {
+            return new Coach(id.Id, Name, MaxSpeed, Seats, Beds);
+        }
+
     }
 }

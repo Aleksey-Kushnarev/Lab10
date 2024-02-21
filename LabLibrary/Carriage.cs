@@ -4,11 +4,46 @@ using Exception = System.Exception;
 
 namespace LabLibrary
 {
-    public class Carriage//, IComparable<Person>, ICloneable, IEquatable<Person>
+    public class IdNumber
     {
+        private int _id;
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException($"{value}", "Id должен быть неотрицательным числом");
+                _id = value;
+            }
+        }
+
+        public IdNumber(int id)
+        {
+            Id = id;
+        }
+
+        public override string ToString()
+        {
+            return $"Id = {Id}";
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is IdNumber t)
+            {
+                return t.Id == Id;
+            }
+            return false;
+        }
+    }
+
+
+    public class Carriage: IInit, IComparable<Carriage>, ICloneable
+    {
+
         public static int GetMaxSpeed => 150;
 
-        private Random rnd = new Random();
+        protected Random rnd = new Random();
 
         static string[] Letters = { "AB", "TR", "PO", "JH", "UG", "LE" };
         static string[] Indexes = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
@@ -16,6 +51,7 @@ namespace LabLibrary
         public string Name { get; set; }
 
         private int _maxSpeed;
+        public IdNumber id;
 
         public int MaxSpeed
         {
@@ -23,7 +59,7 @@ namespace LabLibrary
             set
             {
                 if (value <= 0 || value > GetMaxSpeed)
-                    throw new Exception("Скорость должна быть больше 0");
+                    throw new ArgumentOutOfRangeException("{value}", "Скорость должна быть больше 0");
                 _maxSpeed = value;
             }
         }
@@ -32,12 +68,14 @@ namespace LabLibrary
         {
             Name = "default";
             MaxSpeed = 100;
+            id = new IdNumber(1);
         }
 
-        public Carriage(string number, int maxSpeed)
+        public Carriage(int _id, string number, int maxSpeed)
         {
             Name = number;
             MaxSpeed = maxSpeed;
+            id = new IdNumber(_id);
         }
 
         public override bool Equals(object obj)
@@ -50,7 +88,7 @@ namespace LabLibrary
 
         public override string ToString()
         {
-            return $"Name = {Name}, Speed = {MaxSpeed}";
+            return id.ToString() + $" Name = {Name}, Speed = {MaxSpeed}";
         }
 
         public void Show()
@@ -76,9 +114,25 @@ namespace LabLibrary
 
         public virtual void RandomInit()
         {
+            id = new IdNumber(rnd.Next(100));
             Name = Letters[rnd.Next(Letters.Length)] + Indexes[rnd.Next(Indexes.Length)] +
                      Indexes[rnd.Next(Indexes.Length)] + Indexes[rnd.Next(Indexes.Length)] + Indexes[rnd.Next(Indexes.Length)];
-            MaxSpeed = rnd.Next(30, 180);
+            MaxSpeed = rnd.Next(30, GetMaxSpeed);
+        }
+        public int CompareTo(Carriage? carriage)
+        {
+            if (carriage is null) throw new ArgumentException("Некорректное значение параметра");
+            return String.Compare(Name, carriage.Name, StringComparison.Ordinal);
+        }
+
+        public object Clone()
+        {
+            return new Carriage(id.Id, Name, MaxSpeed);
+        }
+
+        public object ShallowCopy()
+        {
+            return MemberwiseClone();
         }
     }
-    }
+}
