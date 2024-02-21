@@ -22,7 +22,7 @@ namespace LabLibrary
 
         public override string ToString()
         {
-            return $"Id = {Id}";
+            return $"Id = {Id}, ";
         }
 
         public override bool Equals(object? obj)
@@ -80,13 +80,13 @@ namespace LabLibrary
         {
             if (obj == null) return false;
             if (obj is Carriage p)
-                return this.Name == p.Name && this.MaxSpeed == p.MaxSpeed;
+                return Id.Equals(p.Id) && this.Name == p.Name && this.MaxSpeed == p.MaxSpeed;
             return false;
         }
 
         public override string ToString()
         {
-            return Id + $" Name = {Name}, Speed = {MaxSpeed}";
+            return Id + $"Name = {Name}, Speed = {MaxSpeed}";
         }
 
         public void Show()

@@ -61,7 +61,13 @@ namespace Demonstration
             {
                 Console.WriteLine(item);
             }
+            Carriage[] actual = new[] { new Carriage(1, "A", 20), new Carriage(0, "C", 30), new Carriage(2, "B", 10) };
+            Array.Sort(actual, new SortBySpeed());
 
+            foreach (var item in actual)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         public static double GetPercentPassengersInRestaurant(Carriage[] arr)

@@ -69,7 +69,6 @@ namespace LabLibrary
 
         public override bool Equals(Object obj)
         {
-            if (obj == null) return false;
             if (obj is Freight p)
                 return base.Equals(obj) && Weight == p.Weight && TypeOfCargo == p.TypeOfCargo;
             return false;
