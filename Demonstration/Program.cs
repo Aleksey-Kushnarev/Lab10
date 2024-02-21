@@ -39,7 +39,7 @@ namespace Demonstration
 
             Coach example = new Coach(2, "asda", 33, 21, 22);
             Coach exCopy = (Coach)example.ShallowCopy();
-            example.id.Id = 12;
+            example.Id.Id = 12;
             Console.WriteLine(example);
             
             Console.WriteLine(exCopy);
@@ -51,9 +51,16 @@ namespace Demonstration
                 elem.Show();
             }
 
+            Discipline d = new Discipline();
+            d.RandomInit();
             Console.WriteLine(Array.BinarySearch(arr, new Carriage(2, "aa", 33), new SortBySpeed()));
-            
 
+            IInit[] arr2 = new IInit[] { (IInit)example, (IInit)d};
+
+            foreach (var item in arr2)
+            {
+                Console.WriteLine(item);
+            }
 
         }
 

@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-using System;
-using Exception = System.Exception;
+﻿using Exception = System.Exception;
 
 namespace LabLibrary
 {
@@ -43,15 +41,15 @@ namespace LabLibrary
 
         public static int GetMaxSpeed => 150;
 
-        protected Random rnd = new Random();
+        protected Random Rnd = new Random();
 
-        static string[] Letters = { "AB", "TR", "PO", "JH", "UG", "LE" };
-        static string[] Indexes = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+        static readonly string[] Letters = { "AB", "TR", "PO", "JH", "UG", "LE" };
+        static readonly string[] Indexes = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 
         public string Name { get; set; }
 
         private int _maxSpeed;
-        public IdNumber id;
+        public IdNumber Id;
 
         public int MaxSpeed
         {
@@ -59,7 +57,7 @@ namespace LabLibrary
             set
             {
                 if (value <= 0 || value > GetMaxSpeed)
-                    throw new ArgumentOutOfRangeException("{value}", "Скорость должна быть больше 0");
+                    throw new ArgumentOutOfRangeException($"{value}", "Скорость должна быть больше 0");
                 _maxSpeed = value;
             }
         }
@@ -68,17 +66,17 @@ namespace LabLibrary
         {
             Name = "default";
             MaxSpeed = 100;
-            id = new IdNumber(1);
+            Id = new IdNumber(1);
         }
 
-        public Carriage(int _id, string number, int maxSpeed)
+        public Carriage(int id, string number, int maxSpeed)
         {
             Name = number;
             MaxSpeed = maxSpeed;
-            id = new IdNumber(_id);
+            Id = new IdNumber(id);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null) return false;
             if (obj is Carriage p)
@@ -88,7 +86,7 @@ namespace LabLibrary
 
         public override string ToString()
         {
-            return id.ToString() + $" Name = {Name}, Speed = {MaxSpeed}";
+            return Id + $" Name = {Name}, Speed = {MaxSpeed}";
         }
 
         public void Show()
@@ -114,10 +112,10 @@ namespace LabLibrary
 
         public virtual void RandomInit()
         {
-            id = new IdNumber(rnd.Next(100));
-            Name = Letters[rnd.Next(Letters.Length)] + Indexes[rnd.Next(Indexes.Length)] +
-                     Indexes[rnd.Next(Indexes.Length)] + Indexes[rnd.Next(Indexes.Length)] + Indexes[rnd.Next(Indexes.Length)];
-            MaxSpeed = rnd.Next(30, GetMaxSpeed);
+            Id = new IdNumber(Rnd.Next(100));
+            Name = Letters[Rnd.Next(Letters.Length)] + Indexes[Rnd.Next(Indexes.Length)] +
+                     Indexes[Rnd.Next(Indexes.Length)] + Indexes[Rnd.Next(Indexes.Length)] + Indexes[Rnd.Next(Indexes.Length)];
+            MaxSpeed = Rnd.Next(30, GetMaxSpeed);
         }
         public int CompareTo(Carriage? carriage)
         {
@@ -127,7 +125,7 @@ namespace LabLibrary
 
         public object Clone()
         {
-            return new Carriage(id.Id, Name, MaxSpeed);
+            return new Carriage(Id.Id, Name, MaxSpeed);
         }
 
         public object ShallowCopy()

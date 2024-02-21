@@ -8,7 +8,7 @@ namespace LabLibrary
 {
     public class Freight : Carriage, ICloneable
     {
-        private static string[] TypesOfCargo = { "Salt", "Oil", "Coal", "Gas", "Animals"};
+        private static string[] _typesOfCargo = { "Salt", "Oil", "Coal", "Gas", "Animals"};
         public string TypeOfCargo { get; set; }
         public int GetMaxWeight => 100;
 
@@ -63,8 +63,8 @@ namespace LabLibrary
         public override void RandomInit()
         {
             base.RandomInit();
-            Weight = rnd.Next(GetMaxWeight);
-            TypeOfCargo = TypesOfCargo[rnd.Next(TypesOfCargo.Length)];
+            Weight = Rnd.Next(GetMaxWeight);
+            TypeOfCargo = _typesOfCargo[Rnd.Next(_typesOfCargo.Length)];
         }
 
         public override bool Equals(Object obj)
@@ -77,7 +77,7 @@ namespace LabLibrary
 
         public new object Clone()
         {
-            return new Freight(id.Id, Name, MaxSpeed, TypeOfCargo, Weight);
+            return new Freight(Id.Id, Name, MaxSpeed, TypeOfCargo, Weight);
         }
     }
 }

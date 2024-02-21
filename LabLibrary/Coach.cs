@@ -95,12 +95,12 @@ namespace LabLibrary
         public override void RandomInit()
         {
             base.RandomInit();
-            Beds = rnd.Next(GetMaxBeds);
-            Seats = rnd.Next(GetMaxSeats);
+            Beds = Rnd.Next(GetMaxBeds);
+            Seats = Rnd.Next(GetMaxSeats);
         }
         public new object Clone()
         {
-            return new Coach(id.Id, Name, MaxSpeed, Seats, Beds);
+            return new Coach(Id.Id, Name, MaxSpeed, Seats, Beds);
         }
 
     }
