@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabLibrary
 {
-    public class Freight : Carriage, ICloneable
+    public class Freight : Carriage, ICloneable, IEquatable<Freight>
     {
         private static string[] _typesOfCargo = { "Salt", "Oil", "Coal", "Gas", "Animals"};
         public string TypeOfCargo { get; set; }
@@ -67,11 +67,18 @@ namespace LabLibrary
             TypeOfCargo = _typesOfCargo[Rnd.Next(_typesOfCargo.Length)];
         }
 
-        public override bool Equals(Object obj)
+        
+        public override bool Equals(Object obj) => Equals(obj as Freight);
+
+        public bool Equals(Freight? other)
         {
-            if (obj is Freight p)
-                return base.Equals(obj) && Weight == p.Weight && TypeOfCargo == p.TypeOfCargo;
-            return false;
+            if (other == null) return false;
+            return base.Equals(other) && Weight == other.Weight && TypeOfCargo == other.TypeOfCargo;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() * 23 + (Weight.GetHashCode() * TypeOfCargo.GetHashCode());
         }
 
         public new object Clone()

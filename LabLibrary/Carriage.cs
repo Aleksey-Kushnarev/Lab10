@@ -33,10 +33,19 @@ namespace LabLibrary
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 61 * 23 + Id.GetHashCode();
+                return hash;
+            }
+        }
     }
 
 
-    public class Carriage: IInit, IComparable<Carriage>, ICloneable
+    public class Carriage: IInit, IComparable<Carriage>, ICloneable, IEquatable<Carriage>
     {
 
         public static int GetMaxSpeed => 150;
@@ -76,12 +85,13 @@ namespace LabLibrary
             Id = new IdNumber(id);
         }
 
-        public override bool Equals(object? obj)
+        public override bool Equals(object? obj) => Equals(obj as Carriage);
+        
+
+        public bool Equals(Carriage? other)
         {
-            if (obj == null) return false;
-            if (obj is Carriage p)
-                return Id.Equals(p.Id) && this.Name == p.Name && this.MaxSpeed == p.MaxSpeed;
-            return false;
+            if (other == null) return false;
+            return Id.Equals(other.Id) && this.Name == other.Name && this.MaxSpeed == other.MaxSpeed;
         }
 
         public override string ToString()
@@ -131,6 +141,17 @@ namespace LabLibrary
         public object ShallowCopy()
         {
             return MemberwiseClone();
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 61;
+                hash = hash * 23 + (Id.GetHashCode() * MaxSpeed.GetHashCode() * Name.GetHashCode());
+                return hash;
+            }
+            
         }
     }
 }

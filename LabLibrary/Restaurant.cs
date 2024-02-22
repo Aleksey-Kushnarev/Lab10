@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabLibrary
 {
-    public class Restaurant : Coach, ICloneable
+    public class Restaurant : Coach, ICloneable, IEquatable<Restaurant>
     {
         static string[] _workTimes = { "08:00 - 21:00", "18:00 - 23:30", "10:00 - 22:00", "11:00 - 18:00"};
         public string WorkTime { get; set; }
@@ -20,12 +20,17 @@ namespace LabLibrary
             WorkTime = "default";
         }
 
-        public override bool Equals(Object obj)
+        public override bool Equals(Object obj) => Equals(obj as Restaurant);
+        
+        public bool Equals(Restaurant? other)
         {
-            if (obj == null) return false;
-            if (obj is Restaurant p)
-                return base.Equals(obj) && WorkTime == p.WorkTime;
-            return false;
+            if (other == null) return false;
+            return base.Equals(other) && WorkTime == other.WorkTime;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() * 23 + (WorkTime.GetHashCode());
         }
 
         public override void Init()

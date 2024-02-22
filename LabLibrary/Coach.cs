@@ -7,7 +7,7 @@ using Microsoft.VisualBasic.CompilerServices;
 
 namespace LabLibrary
 {
-    public class Coach : Carriage, ICloneable
+    public class Coach : Carriage, ICloneable, IEquatable<Coach>
     {
         public static int GetMaxSeats => 80;
         public static int GetMaxBeds => 60;
@@ -53,17 +53,18 @@ namespace LabLibrary
         }
 
 
-        public override bool Equals(Object obj)
+        public override bool Equals(Object obj) => Equals(obj as Coach);
+        
+
+        public bool Equals(Coach? other)
         {
-            if (obj == null) return false;
-            if (obj is Coach p)
-                return base.Equals(obj) && this.Seats == p.Seats && this.Beds == p.Beds;
-            return false;
+            if(other == null) return false;
+            return base.Equals(other) && Seats == other.Seats &&  Beds == other.Beds;
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return base.GetHashCode() * 23 +(Seats.GetHashCode() * Beds.GetHashCode());
         }
 
         
@@ -102,6 +103,8 @@ namespace LabLibrary
         {
             return new Coach(Id.Id, Name, MaxSpeed, Seats, Beds);
         }
+
+        
 
     }
 }
