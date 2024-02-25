@@ -65,5 +65,7 @@ namespace Tests
             Array.Sort(actual, new SortBySpeed());
             Assert.IsTrue(Enumerable.SequenceEqual(expected, actual));
         }
+
+        
     }
 }

@@ -55,7 +55,7 @@ namespace LabLibrary
 
         public override string ToString()
         {
-            return base.ToString() + " Work Time = " + WorkTime;
+            return base.ToString() + ", Work Time = " + WorkTime;
         }
         public new object Clone()
         {

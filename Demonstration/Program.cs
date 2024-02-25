@@ -79,7 +79,8 @@ namespace Demonstration
             Coach exCopy = (Coach)example.ShallowCopy();
             example.Id.Id = 12;
             Console.WriteLine(example);
-            
+            Restaurant a = new Restaurant();
+            Console.WriteLine(a.GetHashCode());
             Console.WriteLine(exCopy);
             Console.WriteLine("=======");
             example = new Coach(2, "asda", 33, 21, 22);

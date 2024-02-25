@@ -49,7 +49,7 @@ namespace LabLibrary
 
         public override string ToString()
         {
-            return base.ToString() + $" Seats = {Seats}, Beds = {Beds}";
+            return base.ToString() + $", Seats = {Seats}, Beds = {Beds}";
         }
 
 
