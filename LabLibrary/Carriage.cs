@@ -52,7 +52,7 @@ namespace LabLibrary
 
         protected Random Rnd = new Random();
 
-        static readonly string[] Letters = { "AB", "TR", "PO", "JH", "UG", "LE" };
+        static readonly string[] Letters = { "AB", "TR", "PO", "JH", "UG", "LE", "JU", "PA", "TM", "QW" };
         static readonly string[] Indexes = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
 
         public string Name { get; set; }
