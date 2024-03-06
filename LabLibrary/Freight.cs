@@ -25,6 +25,10 @@ namespace LabLibrary
             }
         }
 
+        public Carriage BaseCarriage()
+        {
+            return new Carriage(Id.Id, Name, MaxSpeed);
+        }
         public Freight() : base()
         {
             TypeOfCargo = "default";
